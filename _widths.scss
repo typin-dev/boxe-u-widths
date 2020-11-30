@@ -1,0 +1,37 @@
+// $WIDTHS
+//
+// Width helper classes, like grid systems. `u-1-5`, `u-1-5-mobile`
+
+// $boxe-width variants.
+$boxe-widths: 1 2 3 4 5 6 12 !default;
+
+// Width delimiter
+$boxe-width-delimiter: '-' !default;
+
+// Breakpoint suffix.
+$boxe-width-breakpoint-suffix: '-' !default;
+
+// Enable breakpoint based classes.
+$boxe-breakpoint-widths-enabled: true !default;
+
+@mixin widths($widths, $breakpoint: null) {
+  @each $divisor in $widths {
+    @for $divident from 1 through $divisor {
+      .u-#{$divident}#{$boxe-width-delimiter}#{$divisor}#{$breakpoint} {
+        max-width: ($divident / $divisor) * 100% !important;
+        flex-basis: ($divident / $divisor) * 100% !important;
+      }
+    }
+  }
+}
+
+// Generate width classes based on widths defined in `$boxe-widths`
+@include widths($boxe-widths);
+
+@if (variable-exists(mq-breakpoints) and $boxe-breakpoint-widths-enabled) {
+  @each $name, $value in $mq-breakpoints {
+    @include mq($from: $name) {
+      @include widths($boxe-widths, #{$boxe-width-breakpoint-suffix}#{$name})
+    }
+  }
+}
