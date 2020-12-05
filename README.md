@@ -53,7 +53,7 @@ Example:
 $boxe-widths: 1 2;
 $boxe-width-delimiter: '-of-';
 $boxe-breakpoint-widths-enabled: false;
-@import 'path-to/boxe-u-widths';
+@import 'boxe-u-widths/_widths';
 ```
 Result:
 ```css
